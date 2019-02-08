@@ -1,0 +1,79 @@
+#include<stdio.h>
+#include<queue>
+using namespace std;
+bool mark[100][100][100];
+int maze[100][100][100];
+struct N{
+	int a,b,c;
+	int t;
+};
+queue<N>Q;
+int go[][3]={
+     1,0,0,
+	 -1,0,0,
+	 0,1,0,
+	 0,-1,0,
+	 0,0,1,
+	 0,0,-1
+};
+int going(int a,int b,int c)
+{
+	while(Q.empty()==false)
+	{
+		N tim=Q.front();
+		Q.pop();
+		int i;
+		for(i=0;i<6;i++)
+		{
+			int a1=tim.a+go[i][0];
+			int b1=tim.b+go[i][1];
+			int c1=tim.c+go[i][2];
+			if(a1<0||a1>=a||b1<0||b1>=b||c1<0||c1>=c) continue;
+			if(maze[a1][b1][c1]==1) continue;
+			if(mark[a1][b1][c1]==true) continue;
+			N tmp;
+			tmp.a=a1;
+			tmp.b=b1;
+			tmp.c=c1;
+			tmp.t=tim.t+1;
+			mark[a1][b1][c1]=true;
+			Q.push(tmp);
+			if(a1==a-1&&b1==b-1&&c1==c-1) return tmp.t;
+		}
+	}
+	return -1;
+}
+void main()
+{
+	int k;
+	while(scanf("%d",&k)!=EOF)
+	{
+		while(k--!=0)
+		{
+			int a,b,c,t,i,j,p;
+	    	scanf("%d%d%d%d",&a,&b,&c,&t);
+	    	if(a>=1&&a<=50&&b>=1&&b<=50&&c>=1&&c<=50&&t>=1&&t<=1000)
+			{
+	    		for(i=0;i<a;i++)
+				{
+		    		for(j=0;j<b;j++)
+					{
+				    	for(p=0;p<c;p++)
+						{
+				 	    	scanf("%d",&maze[i][j][p]);
+					    	mark[i][j][p]=false;
+						}
+					}
+				}
+		    	while(Q.empty()==false) Q.pop();
+		    	mark[0][0][0]=true;
+		    	N po;
+		    	po.a=po.b=po.c=po.t=0;
+		    	Q.push(po);
+		    	int v=going(a,b,c);
+		    	if(v<=t) printf("%d",v);
+		    	else printf("-1");
+			}
+		}
+	}
+}
