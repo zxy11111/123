@@ -1,0 +1,83 @@
+#include<stdio.h>
+#include<vector>
+using namespace std;
+struct E{
+	int next;
+	int c;
+	int cost;
+};
+vector<E>e[1000];
+int costage[1000];
+bool mark[1000];
+int dis[1000];
+void main()
+{
+	int n,m;
+	while(scanf("%d%d",&n,&m)!=EOF)
+	{
+		if(m==0&&n==0) break;
+		else if(n>1&&n<=1000&&m>0&&m<100000)
+		{
+			int i,j;
+			for(i=1;i<=n;i++)
+			{
+				e[i].clear();
+			}
+			while(m--!=0)
+			{
+				int a,b,d,p;
+				scanf("%d%d%d%d",&a,&b,&d,&p);
+				E tmp;
+				tmp.c=d;
+				tmp.cost=p;
+				tmp.next=b;
+				e[a].push_back(tmp);
+				tmp.next=a;
+				e[b].push_back(tmp);
+			}
+			int s,t;
+			scanf("%d%d",&s,&t);
+			while(s==t)
+			{
+				scanf("%d%d",&s,&t);
+			}
+			int newp=s;
+			for(i=1;i<=n;i++)
+			{
+				costage[i]=0;
+				mark[i]=false;
+				dis[i]=0;
+			}
+			dis[s]=0;
+			mark[s]=true;
+			for(i=0;i<n;i++)
+			{
+				for(j=0;j<e[newp].size();j++)
+				{
+					int c=e[newp][j].c;
+					int next=e[newp][j].next;
+					int cost=e[newp][j].cost;
+					if(mark[next]==true) continue;
+					if(dis[next]==0||dis[next]>dis[newp]+c||dis[next]==dis[newp]+c&&costage[next]>costage[newp]+cost)
+					{
+						dis[next]=dis[newp]+c;
+						costage[next]=costage[newp]+cost;
+					}
+				}
+				int min=100000;
+				for(j=1;j<=n;j++)
+				{
+					if(mark[j]==true) continue;
+					if(dis[j]==0) continue;
+					if(min>dis[j])
+					{
+						min=dis[j];
+						newp=j;
+					}
+				}
+				mark[newp]=true;
+			}
+			printf("%d,%d",dis[t],costage[t]);
+		}
+	}
+}
