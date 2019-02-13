@@ -3,6 +3,6 @@ void main()
 {
 	int a;
 	scanf("%d",&a);
-	if(a>>1==1) printf("yes");
+	if(a>>1==1) printf("yes"); # a/2==1
 	else printf("no");
 }
