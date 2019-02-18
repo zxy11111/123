@@ -1,0 +1,30 @@
+#include<stdio.h>
+int a[100];
+void main()
+{
+	int i,n,j;
+	while(scanf("%d",&n)!=EOF)
+	{
+		for(i=0;i<n;i++)
+		{
+			scanf("%d",&a[i]);
+		}
+		for(i=n-1;i>=0;i--)
+		{
+			for(j=0;j<i;j++)
+			{
+				int tmp;
+				if(a[j]>a[j+1])
+				{
+					tmp=a[j+1];
+					a[j+1]=a[j];
+					a[j]=tmp;
+				}
+			}
+		}
+		for(i=0;i<n;i++)
+		{
+			printf("%4d",a[i]);
+		}
+	}
+}
