@@ -1,0 +1,15 @@
+#include<stdio.h>
+#include<string.h>
+void main()
+{
+	char sentence[256];
+	scanf("%s",sentence);
+	int l=0,i=0;
+	l=strlen(sentence);
+	int sum=0;
+	for(i=l-1;sentence[i]>='a'&&sentence[i]<='z';i--)
+	{
+		sum++;
+	}
+	printf("%d",sum);
+}
