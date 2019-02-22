@@ -1,0 +1,43 @@
+#include<stdio.h>
+#include<stack>
+#include<string.h>
+using namespace std;
+stack<int>S;
+void main()
+{
+	char str[100]={0},ans[100]={0};
+	while(scanf("%s",str)!=EOF)
+	{
+		puts(str);
+		while(S.empty()==false) S.pop();
+		int i;
+		for(i=0;i<strlen(str);i++)
+		{
+			if(str[i]=='(')
+			{
+				S.push(i);
+			}
+			else if(str[i]==')')
+			{
+				if(S.empty()==false)
+				{
+					S.pop();
+				}
+				else
+				{
+					ans[i]='?';
+				}
+			}
+		}
+		while(S.empty()==false)
+		{
+			int c=S.top();
+			ans[c]='$';
+			S.pop();
+		}
+		for(i=0;i<strlen(str);i++)
+		{
+			putchar(ans[i]);
+		}
+	}
+}
