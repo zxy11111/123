@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<string.h>
+int max(int a,int b)
+{
+	return a>b?a:b;
+}
+void main()
+{
+	char sentence[1000];
+	while(gets(sentence))
+	{
+		int i=0,temp=0,ans=0;
+		while(sentence[i]!='\0')
+		{
+			while(sentence[i]!=' '&&sentence[i]!='\0')
+			{
+				ans++;
+				i++;
+			}
+			temp=max(temp,ans);
+			if(sentence[i]=='\0') break;
+			ans=0;
+			i++;
+		}
+		printf("%d",temp);
+	}
+}
