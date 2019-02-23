@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<string.h>
+struct node{
+	node*lchild;
+	node*rchild;
+	int c;
+}tree[100];
+int ans=0;
+node*create()
+{
+	tree[ans].lchild=tree[ans].rchild=NULL;
+	return &tree[ans++];
+}
+char str1[100],str2[100];
+char *str;
+int *size;
+void postorder(node*t)
+{
+	if(t->lchild!=NULL)
+	{
+		postorder(t->lchild);
+	}
+	if(t->rchild!=NULL)
+	{
+		postorder(t->rchild);
+	}
+	str[(*size)++]=t->c+'0';
+}
+void inorder(node*t)
+{
+	if(t->lchild!=NULL)
+	{
+		inorder(t->lchild);
+	}
+	str[(*size)++]=t->c+'0';
+	if(t->rchild!=NULL)
+	{
+		inorder(t->rchild);
+	}
+}
+node*insert(node*t,int a)
+{
+	if(t==NULL)
+	{
+		t=create();
+		t->c=a;
+		return t;
+	}
+	else if(t->c>a)
+	{
+		t->lchild=insert(t->lchild,a);
+	}
+	else if(t->c<a)
+	{
+		t->rchild=insert(t->rchild,a);
+	}
+	return t;
+}
+void main()
+{
+	int n,i;
+	char tmp[100];
+	while(scanf("%d",&n)!=EOF)
+	{
+		if(n==0) break;
+		node*t=NULL;
+		scanf("%s",tmp);
+        for(i=0;tmp[i];i++)
+		{
+			t=insert(t,tmp[i]-'0');
+		}
+		int size1=0;
+		size=&size1;
+		str=str1;
+		postorder(t);
+		inorder(t);
+		str1[size1]='\0';
+		int ans=0;
+		while(n--!=0)
+		{
+			scanf("%s",tmp);
+			node*t1=NULL;
+			for(i=0;tmp[i];i++)
+			{
+				t1=insert(t1,tmp[i]-'0');
+			}
+			int size2=0;
+		    size=&size2;
+	    	str=str2;
+	    	postorder(t1);
+	    	inorder(t1);
+	    	str2[size2]='\0';
+	    	puts(strcmp(str1,str2)==0?"yes":"no");
+		}
+	}
+}
