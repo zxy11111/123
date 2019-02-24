@@ -1,0 +1,23 @@
+#include<stdio.h>
+int gcd(int a,int b)
+{
+	int temp=1;
+	while(temp!=0)
+	{
+		temp=a%b;
+		if(temp==0) return b;
+		a=b;
+		b=temp;
+	}
+}
+void main()
+{
+	int a,b;
+	while(scanf("%d%d",&a,&b)!=EOF)
+	{
+		if(b==0) break;
+		int c=gcd(a,b);
+		int d=a*b/c;
+		printf("%d\n",d);
+	}
+}
