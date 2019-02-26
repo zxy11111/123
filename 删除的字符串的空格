@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include<string>
+#include<iostream>
+using namespace std;
+void main()
+{
+	char sentence[100];
+	gets(sentence);
+	string a=sentence;
+	int t=a.find(' ',0);
+	while(t!=string::npos)
+	{
+    	a.erase(t,1);
+		t=a.find(' ',0);
+	}
+	cout<<a<<endl;
+}
