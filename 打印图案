@@ -1,0 +1,26 @@
+#include<stdio.h>
+int main()
+{
+	int n;
+	while(scanf("%d",&n)!=EOF)
+	{
+		int i,j,k,count=0,ans=0;
+		int temp=n;
+		for(i=1;i<=n;i++)
+		{
+			for(k=temp-1;k>=1;k--)
+			{
+				printf(" ");
+			}
+			for(j=1;j<=temp+2*count+ans;j++)
+			{
+				printf("*");
+			}
+			temp--;
+			ans++;
+			count++;
+			printf("\n");
+		}
+	}
+	return 0;
+}
