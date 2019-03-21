@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<algorithm>
+#include<stdlib.h>
+using namespace std;
+struct student{
+	char name[20];
+	int age;
+	int score;
+}s[5];
+bool cmp(student a,student b)
+{
+	return a.score>b.score;
+}
+int main()
+{
+	FILE *fp;
+	if((fp=fopen("sf1.txt","w"))==NULL)
+	{
+		printf("cannot open the file!");
+		return 0;
+	}
+	int i;
+	for(i=0;i<4;i++)
+	{
+		scanf("%s%d%d",s[i].name,&s[i].age,&s[i].score);
+	}
+	for(i=0;i<4;i++)
+	{
+		fwrite(&s[i],sizeof(student),1,fp);
+	}
+	fclose(fp);
+	FILE *fp1;
+	if((fp1=fopen("sf1.txt","r"))==NULL)
+	{
+		printf("cannot open the file!");
+		return 0;
+	}
+	while(!feof(fp))
+	{
+		student st;
+		fread(&st,1,sizeof(student),fp);
+		printf("%s%d%d\n",st.name,st.age,st.score);
+	}
+	sort(s,s+4,cmp);
+	printf("%s%d%d",s[1].name,s[1].age,s[1].score);
+	system("pause");
+	return 0;
+}
