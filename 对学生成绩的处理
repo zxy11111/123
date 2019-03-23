@@ -1,0 +1,85 @@
+#include<stdio.h>
+#include<string.h>
+#include<algorithm>
+using namespace std;
+struct student{
+	char num[10];
+	char name[20];
+	int average;
+	int c;
+	struct snode *head;
+}s[100];
+struct snode{
+	int score;
+	snode *next;
+};
+bool cmp(student a,student b)
+{
+	return a.c>b.c;
+}
+int main()
+{
+	int n;
+	while(scanf("%d",&n)!=EOF)
+	{
+		int i;
+		for(i=0;i<n;i++)
+		{
+			scanf("%s%s",s[i].num,s[i].name);
+			s[i].head=(snode*)malloc(sizeof(snode));
+			snode *temp=s[i].head;
+			scanf("%d",&temp->score);
+			if(temp->score==0)
+			{
+				break;
+			}
+			while(1)
+			{
+				snode *p;
+				p=(snode*)malloc(sizeof(snode));
+				scanf("%d",&p->score);
+				if(p->score==0)
+				{
+					break;
+				}
+				temp->next=p;
+				temp=p;
+			}
+			temp->next=NULL;
+			int all=0,ans=0;
+			for(temp=s[i].head;temp;temp=temp->next)
+			{
+				all+=temp->score;
+				ans++;
+			}
+			s[i].average=all/ans;
+		}
+		for(i=0;i<n;i++)
+		{
+			printf("%s%4d\n",s[i].num,s[i].average);
+		}
+		for(i=0;i<n;i++)
+		{
+			snode *t;
+			int count=0;
+			for(t=s[i].head;t;t=t->next)
+			{
+				if(t->score<60)
+				{
+					count++;
+				}
+			}
+			s[i].c=count;
+			if(count>2)
+			{
+				printf("%6s%6s%4d\n",s[i].num,s[i].name,s[i].average);
+			}
+		}
+		sort(s,s+n,cmp);
+		for(i=0;i<n;i++)
+		{
+			printf("%6s%6s%4d%4d\n",s[i].num,s[i].name,s[i].average,s[i].c);
+		}
+	}
+	return 0;
+}
