@@ -1,0 +1,38 @@
+#include<stdio.h>
+#include<stack>
+using namespace std;
+stack<int>s;
+int main()
+{
+	char str[100];
+	while(gets(str))
+	{
+		while(s.empty()==false)
+		{
+			s.pop();
+		}
+		int i,count=0,max=-1;
+		for(i=0;str[i];i++)
+		{
+			if(str[i]=='(')
+			{
+				count++;
+				if(count>max)
+				{
+					max=count;
+				}
+				s.push(i);
+			}
+			else if(str[i]==')')
+			{
+				if(s.empty()==false)
+				{
+					s.pop();
+					count--;
+				}
+			}
+		}
+		printf("%d",max);
+	}
+	return 0;
+}
