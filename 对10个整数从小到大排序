@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<algorithm>
+#include<stdlib.h>
+using namespace std;
+bool cmp(int a,int b)
+{
+	return a<b;
+}
+int main()
+{
+	int num[10];
+	int i;
+	for(i=0;i<10;i++)
+	{
+		scanf("%d",&num[i]);
+	}
+	sort(num,num+10,cmp);
+	for(i=0;i<10;i++)
+	{
+		printf("%4d",num[i]);
+	}
+	system("pause");
+	return 0;
+}
